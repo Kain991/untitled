@@ -11,6 +11,10 @@ iostream
 -
 cmath
 -
+string
+-
 algorithm
+-
+vector
 -
 

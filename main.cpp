@@ -2,8 +2,15 @@
 #include <cmath>
 #include <string>
 #include <algorithm>
+#include <vector>
 using namespace std;
-class Account{
+class I_Printable {
+public:
+    void printInterface(double tenge , double dollar , double euro, string name , double balance){
+        cout<<"Owner :"<<name<<endl<<"Balance :"<<balance<<endl<<"Tenge :"<<tenge<<endl<<"Dollar :"<<dollar<<endl<<"Euro :"<<euro<<endl;
+    }
+};
+class Account : public I_Printable{
 protected:
     string name;
     double balance;
@@ -11,6 +18,9 @@ protected:
     double tenge;
     double euro;
 public:
+    void PrintInterface(){
+        I_Printable :: printInterface(tenge , dollar ,  euro, name , balance);
+    }
     Account(){
         name = "Unnamed Account";
         tenge = 0;
@@ -80,17 +90,21 @@ public:
 
 };
 
-class I_Printable {
-    void printInterface(){
 
-    }
-};
 
 class SavingAccount: public Account{
 public:
     int interestRateT= 1;
     int interestRateE= 3;
     int interestRateD= 2;
+    SavingAccount() : Account(){
+
+    }
+    SavingAccount(string name , double tenge, double euro, double dollar, double balance , int interestRateT ,int interestRateE , int interestRateD) : Account(name , tenge, euro , dollar , balance){
+        this->interestRateT = interestRateT;
+        this->interestRateE = interestRateE;
+        this->interestRateD = interestRateD;
+    }
 
     double depositT (double amount ) override {
 
@@ -118,10 +132,14 @@ public:
     void withdraw(){
         Account ::withdraw(amount2*fee);
     }
+    CheckingAccount(string name , double tenge, double euro, double dollar, double balance) : Account(name , tenge, euro , dollar , balance){
+
+    }
 };
 
 class TrustAccount : public SavingAccount{
 public:
+    TrustAccount(): SavingAccount(){}
     double depositT (double amount ) override {
         if(amount >= 1000){
             amount += 10;
@@ -150,9 +168,27 @@ public:
         }
     }
 };
+class Redistribution{
+public:
+    vector <Account> accounts;
+    Redistribution(vector <Account> account){
+        this->accounts = accounts;
+    }
+    void redistribute(double tenge){
+        for(int i =0 ;i < accounts.size() ; i++){
+            accounts[i].depositT(tenge);
+        }
+    }
+};
 
 
 int main() {
 
+    Account acc;
+    TrustAccount tru =TrustAccount();
+    Redistribution redistribution =  Redistribution({acc , tru});
+    redistribution.redistribute(150);
+    tru.PrintInterface();
+    acc.PrintInterface();
     return 0;
 }
