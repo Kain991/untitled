@@ -168,27 +168,27 @@ public:
         }
     }
 };
-class Redistribution{
-public:
-    vector <Account> accounts;
-    Redistribution(vector <Account> account){
-        this->accounts = accounts;
-    }
-    void redistribute(double tenge){
-        for(int i =0 ;i < accounts.size() ; i++){
-            accounts[i].depositT(tenge);
-        }
-    }
-};
+//class Redistribution{
+//public:
+//    vector <Account> accounts;
+//    Redistribution(vector <Account> account){
+//        this->accounts = accounts;
+//    }
+//    void redistribute(double tenge){
+//        for(int i =0 ;i < accounts.size() ; i++){
+//            accounts[i].depositT(tenge);
+//        }
+//    }
+//};
 
 
 int main() {
 
-    Account acc;
-    TrustAccount tru =TrustAccount();
-    Redistribution redistribution =  Redistribution({acc , tru});
-    redistribution.redistribute(150);
-    tru.PrintInterface();
-    acc.PrintInterface();
+//    Account acc;
+//    TrustAccount tru =TrustAccount();
+//    Redistribution redistribution =  Redistribution({acc , tru});
+//    redistribution.redistribute(150);
+//    tru.PrintInterface();
+//    acc.PrintInterface();
     return 0;
 }
